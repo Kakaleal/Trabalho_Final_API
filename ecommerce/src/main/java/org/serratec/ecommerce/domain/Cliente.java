@@ -34,11 +34,10 @@ public class Cliente{
 	@CPF
 	private String cpf;
 	
-	/* RELACIONAMENTO DE UM PARA UM COM ENDERECO DO TIPO BI
 	@OneToOne
 	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-	*/
+	
 	
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos;
