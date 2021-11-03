@@ -20,7 +20,7 @@ public class Categoria {
 	@NotBlank(message = "Nome da categoria ")
 	@Size (max = 50)
 	@Column(nullable = false, length = 50)
-	private String nomeDaCategoria;
+	private String name;
 	
 	@NotBlank(message = "Descrição da Categoria")
 	@Size ( max = 200)
@@ -37,12 +37,12 @@ public class Categoria {
 		this.codCategoria = codCategoria;
 	}
 
-	public String getNomeDaCategoria() {
-		return nomeDaCategoria;
+	public String getName() {
+		return name;
 	}
 
-	public void setNomeDaCategoria(String nomeDaCategoria) {
-		this.nomeDaCategoria = nomeDaCategoria;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getDescricao() {
