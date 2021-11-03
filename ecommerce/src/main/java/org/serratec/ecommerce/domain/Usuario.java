@@ -1,68 +1,68 @@
 package org.serratec.ecommerce.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Email;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+//USUARIO SERÁ A NOSSA CLASSE QUE NÃO TERÁ LOGIN
 @Entity
 public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cod_usuario")
+	@Column(name = "id_usuario")
 	private Long id;
 	
-	@Column(name = "nome_usuario" , unique = true)
-	@NotBlank(message = "Nome nÃ£o pode ser nulo")
-	@Size(min = 1, max = 50, message = "Nome nÃ£o pode ser abaixo de {min} ou {max} Letras")
+	
+	@Column
+	@NotBlank(message = "Nome não pode ser nulo")
+	@Size(max = 50, message = "Nome não pode ultrapassar {max} Letras")
 	private String nome;
-
-	@Column
-	@Email
-	@Size(min = 5, max = 120, message = "Nome nÃ£o pode ser abaixo de {min} ou {max} Letras")
-	private String email;
 	
 	@Column
-	@NotBlank(message = "Senha não pode ser em branco")
-	//@VERIFICAR SE TEM ALGUM TIPO DE VALIDAÃ‡ÃƒO PARA SENHA
-	private String senha;
+	@NotBlank(message = "Sobrenome não pode ser nulo")
+	@Size(max = 60, message = "Sobrenome não pode ultrapassar {max} Letras")
+	private String sobrenome;
 	
-	public Long getId() {
-		return id;
+	@Column(name = "data_nascimento")
+	private Date dataNascimento;
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
 	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
+	
 	public String getNome() {
 		return nome;
 	}
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-	public String getEmail() {
-		return email;
+	public String getSobrenome() {
+		return sobrenome;
 	}
-
-	public void setEmail(String email) {
-		this.email = email;
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
 	}
-
-	public String getSenha() {
-		return senha;
+	public Date getDataNascimento() {
+		return dataNascimento;
 	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
+	
 	
 	
 }

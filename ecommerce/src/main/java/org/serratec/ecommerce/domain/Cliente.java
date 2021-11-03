@@ -1,61 +1,67 @@
 package org.serratec.ecommerce.domain;
 
-import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.Email;
 
 import org.hibernate.validator.constraints.br.CPF;
 
+//CLIENTE SERÁ A CLASSE COM LOGIN
+//CLIENTE RECEBE UMA PK DE USUARIO PARA CONTER AS INFO QUE CONTÉM LÁ NOME/SOBRENOME ETC..
 @Entity
-public class Cliente {
+public class Cliente{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "cod_cliente")
 	private Long id;
 	
-	@Column(name = "nome_completo")
-	@NotBlank(message = "Nome não pode ser nulo")
-	@Size(max = 120, message = "Nome não pode ultrapassar {max} caracteres")
-	private String nome;
+	@Column
+	@Email
+	private String email;
 	
 	@Column
+	private String senha;
+	
 	@CPF
 	private String cpf;
 	
-	@Column(name = "data_nascimento")
-	private Date dataNascimento;
-	
-	//PROCURAR COMO UTILIZAR A API VIA CEP PARA VALIDAÃ‡ÃƒO DO ENDEREÃ‡O
-	private String endereco;
-	
-	//FK DO NOME_USUARIO
+	/* RELACIONAMENTO DE UM PARA UM COM ENDERECO DO TIPO BI
 	@OneToOne
-	@JoinColumn(name = "fk_cod_usuario")
+	@JoinColumn(name = "id_usuario")
 	private Usuario usuario;
-
-	public Long getId() {
-		return id;
+	*/
+	
+	@OneToMany(mappedBy = "cliente")
+	private List<Endereco> enderecos;
+	
+	//FETCH UTILIZADO PARA QUANDO FOR BUSCAR OS ENDERECOS TRAZER TODOS OS ENDERECOS
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_endereco")
+	private Endereco endereco;
+	
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getNome() {
-		return nome;
+	public String getSenha() {
+		return senha;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getCpf() {
@@ -65,30 +71,5 @@ public class Cliente {
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
-
-	public Date getDataNascimento() {
-		return dataNascimento;
-	}
-
-	public void setDataNascimento(Date dataNascimento) {
-		this.dataNascimento = dataNascimento;
-	}
-
-	public String getEndereco() {
-		return endereco;
-	}
-
-	public void setEndereco(String endereco) {
-		this.endereco = endereco;
-	}
-
-	public Usuario getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
-	}
-
 	
 }
